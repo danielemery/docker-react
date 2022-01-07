@@ -1,16 +1,15 @@
 # Docker React
 
-Tooling to deploy React applications with docker containers.
+CLI & base image to deploy React applications with docker containers.
 
 ## Features
 
 - [ ] Lightweight nginx container
-- [ ] Runtime environment variable injection
--   [ ] Javascript
--   [ ] HTML
-- [ ] Runtime environment variable validation
+- [ ] Runtime environment variable injection & validation
+  - [ ] Javascript
+  - [ ] HTML
+- [ ] Application initialization
 - [ ] Support for serving at a path
-- [ ] Application initialisations
 
 ## Supported Tooling
 
