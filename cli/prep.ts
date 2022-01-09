@@ -23,7 +23,7 @@ export function addPrepCommand(program: Command) {
     .action((options: Options) => {
       const {
         environment,
-        schema = './joi.schema.js',
+        schema = './env.schema.js',
         destination = './',
       } = options;
       generateEnvironmentFile(environment, schema, destination);
