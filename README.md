@@ -4,11 +4,19 @@ CLI & base image to deploy React applications with docker containers.
 
 ## Features
 
-- [ ] Lightweight nginx container
-- [ ] Runtime environment variable injection & validation
-  - [ ] Javascript
-  - [ ] HTML
-- [ ] Application initialization
+- [ ] Configuration
+  - [ ] Command-line arguments
+  - [ ] Configuration file
+- [ ] Lightweight nginx docker container
+- [ ] CLI
+  - [ ] Runtime environment variable injection & validation
+    - [ ] Javascript
+    - [ ] HTML
+    - [ ] Hash file for cache invalidation
+  - [ ] Application initialization
+    - [ ] `index.html` file modification
+    - [ ] `Dockerfile` generation
+    - [ ] Schema and types generation
 - [ ] Support for serving at a path
 
 ## Supported Tooling
