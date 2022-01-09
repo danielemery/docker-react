@@ -4,13 +4,13 @@ CLI & base image to deploy React applications with docker containers.
 
 ## Features
 
-- [ ] Configuration
-  - [ ] Command-line arguments
+- [X] Configuration
+  - [X] Command-line arguments
   - [ ] Configuration file
-- [ ] Lightweight nginx docker container
-- [ ] CLI
-  - [ ] Runtime environment variable injection & validation
-    - [ ] Javascript
+- [X] Lightweight nginx docker container
+- [X] CLI
+  - [X] Runtime environment variable injection & validation
+    - [X] Javascript
     - [ ] HTML
     - [ ] Hash file for cache invalidation
   - [ ] Application initialization
@@ -22,12 +22,12 @@ CLI & base image to deploy React applications with docker containers.
 ## Supported Tooling
 
 - [ ] Create React App
-- [ ] Vite
+- [X] Vite
 - [ ] React Static
 
 ## Supported Validation
 
-- [ ] Joi
+- [X] Joi
 - [ ] Yup
 
 ## Other TODOs
