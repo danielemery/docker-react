@@ -44,7 +44,7 @@ jobs:
 
   publish-docker-beta:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - run:
@@ -88,7 +88,7 @@ jobs:
 
   publish-docker:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - run:
