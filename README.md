@@ -93,7 +93,7 @@ CLI & base image to deploy React applications with docker containers.
    ```json
    {
      "dev": "npm run init-local && vite",
-     "init-local": "npx docker-react prep -s ./env.schema.js -e local"
+     "init-local": "npx docker-react prep -s ./env.schema.js -e local -d public"
    }
    ```
 
