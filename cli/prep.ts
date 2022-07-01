@@ -56,7 +56,7 @@ async function generateEnvironmentFile(
   if (environment === 'local') {
     const result = dotenv.config();
     if (result.error) {
-      throw result.error;
+      console.warn('Unable to load values from .env - all environment variables must be set', result.error);
     }
   }
 
