@@ -71,10 +71,10 @@ CLI & base image to deploy React applications with docker containers.
    </head>
    ```
 
-4. Create `Dockerfile` (in a future version this will be generated for you)
+4. Create `Dockerfile` (in a future version this will be generated for you). NOTE `docker-react` image version version must match your installed npm version of docker-react.
 
    ```Dockerfile
-   FROM demery/docker-react:v0.0.2
+   FROM demery/docker-react:vX.X.X
 
    COPY env.schema.js ./env.schema.js
    COPY build /usr/share/nginx/html
