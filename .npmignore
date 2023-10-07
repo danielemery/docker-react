@@ -1,2 +1,15 @@
+# Ignore source & configuration code
 src
 tsconfig.json
+prettier.config.cjs
+sample.joi.schema.js
+.github
+
+# Ignore docker-related files
+Dockerfile
+.dockerignore
+docker-react-entrypoint.sh
+nginx.conf
+
+# Ignore nix development flakes
+flake.*
