@@ -42,6 +42,7 @@ jobs:
             bin
             Dockerfile
             .dockerignore
+            docker-react-entrypoint.sh
             .npmignore
             package*.json
             README.md
