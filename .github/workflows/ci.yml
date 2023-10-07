@@ -67,7 +67,7 @@ jobs:
         with:
           data: |
             {
-              "version": ${{steps.version.outputs.full_without_prefix}}
+              "version": "${{steps.version.outputs.full_without_prefix}}"
             }
 
       - name: Configure node
