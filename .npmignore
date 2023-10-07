@@ -3,11 +3,13 @@ src
 tsconfig.json
 prettier.config.cjs
 sample.joi.schema.js
+.github
 
 # Ignore docker-related files
 Dockerfile
-docker-react-entrypoint.sh
 .dockerignore
+docker-react-entrypoint.sh
+nginx.conf
 
 # Ignore nix development flakes
 flake.*

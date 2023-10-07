@@ -1,4 +1,4 @@
-.circleci
+.github
 bin
 cli
 dist

@@ -42,6 +42,7 @@ jobs:
             bin
             Dockerfile
             .dockerignore
+            nginx.conf
             docker-react-entrypoint.sh
             .npmignore
             package*.json
