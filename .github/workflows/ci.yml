@@ -83,7 +83,7 @@ jobs:
         if: steps.version.outputs.is_valid == 'true'
 
       - name: Install packages
-        run: npm ci --production
+        run: npm ci --omit=dev
         if: steps.version.outputs.is_valid == 'true'
 
       - name: Publish to npm (stable channel)
@@ -126,7 +126,7 @@ jobs:
         if: steps.version.outputs.is_valid == 'true'
 
       - name: Install packages
-        run: npm ci --production
+        run: npm ci --omit=dev
         if: steps.version.outputs.is_valid == 'true'
 
       - name: Extract metadata (tags, labels) for Docker
