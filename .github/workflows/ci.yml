@@ -36,11 +36,50 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-artifacts
+          name: artifacts
           path: |
             dist
             bin
             Dockerfile
             .dockerignore
+            .npmignore
             package*.json
             README.md
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: nowsprinting/check-version-format-action@v3
+        id: version
+        with:
+          prefix: 'v'
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+        if: steps.version.outputs.is_valid == 'true'
+
+      - name: Configure node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+        if: steps.version.outputs.is_valid == 'true'
+
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ~/.npmrc
+        if: steps.version.outputs.is_valid == 'true'
+
+      - name: Install packages
+        run: npm ci --production
+        if: steps.version.outputs.is_valid == 'true'
+
+      - name: Publish to npm (stable channel)
+        run: npm publish --access public
+        if: steps.version.outputs.is_valid == 'true' && steps.version.outputs.is_stable == 'true'
+
+      - name: Publish to npm (beta channel)
+        run: npm publish --access public --tag beta
+        if: steps.version.outputs.is_valid == 'true' && steps.version.outputs.is_stable == 'false'

@@ -1,21 +1,5 @@
 version: 2.1
 jobs:
-  publish-npm-beta:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Authenticate with NPM
-          command: |
-            printf "//`node -p \"require('url').parse(process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org').host\"`/:_authToken=${NPM_TOKEN}\nregistry=${NPM_REGISTRY_URL:-https://registry.npmjs.org}\n" > .npmrc
-            npm whoami
-      - run:
-          name: Deploy to NPM
-          command: |
-            npm publish --access public --tag beta
-
   publish-docker-beta:
     machine:
       image: ubuntu-2004:202201-02
@@ -43,22 +27,6 @@ jobs:
           command: |
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
             docker push $REGISTRY:$TAG
-
-  publish-npm:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Authenticate with NPM
-          command: |
-            printf "//`node -p \"require('url').parse(process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org').host\"`/:_authToken=${NPM_TOKEN}\nregistry=${NPM_REGISTRY_URL:-https://registry.npmjs.org}\n" > .npmrc
-            npm whoami
-      - run:
-          name: Deploy to NPM
-          command: |
-            npm publish --access public
 
   publish-docker:
     machine:
@@ -94,28 +62,6 @@ workflows:
   version: 2
   ci:
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /.*/
-      - publish-npm-beta:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /v([0-9])*.([0-9])*.([0-9])*-.*/
-            branches:
-              ignore: /.*/
-          context: danielemery-npm
-      - publish-npm:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /v([0-9])*.([0-9])*.([0-9])*/
-            branches:
-              ignore: /.*/
-          context: danielemery-npm
       - publish-docker-beta:
           requires:
             - test
