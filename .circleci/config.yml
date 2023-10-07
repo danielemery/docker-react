@@ -1,31 +1,5 @@
 version: 2.1
 jobs:
-  test:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: |
-            npm ci
-      - run:
-          name: Build
-          command: |
-            npm run build
-      - run:
-          name: Run Tests
-          command: |
-            npm t
-      - persist_to_workspace:
-          root: .
-          paths:
-            - dist/*
-            - bin/*
-            - package.json
-            - package-lock.json
-            - README.md
-
   publish-npm-beta:
     docker:
       - image: circleci/node:16
