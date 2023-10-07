@@ -62,6 +62,14 @@ jobs:
           name: artifacts
         if: steps.version.outputs.is_valid == 'true'
 
+      - name: set package json version
+        uses: jaywcjlove/github-action-package@main
+        with:
+          data: |
+            {
+              "version": ${{steps.version.outputs.full_without_prefix}}
+            }
+
       - name: Configure node
         uses: actions/setup-node@v3
         with:
