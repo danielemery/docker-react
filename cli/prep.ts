@@ -5,7 +5,7 @@ import { Command } from 'commander';
 import dotenv from 'dotenv';
 import Joi from 'joi';
 
-import { Environment, Options } from './options.js';
+import { Environment, PrepOptions } from './options.js';
 
 const ENVIRONMENT_DEFINITION_FILE_NAME = 'window.env.js';
 
@@ -20,7 +20,7 @@ export function addPrepCommand(program: Command) {
     )
     .option('-s, --schema [string]', 'The path to the schema file')
     .option('-d, --destination [string', 'The path to the destination')
-    .action((options: Options) => {
+    .action((options: PrepOptions) => {
       const {
         environment,
         schema = './env.schema.js',

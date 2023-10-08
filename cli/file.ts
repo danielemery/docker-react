@@ -9,3 +9,13 @@ export async function findAndReplaceInFile(
   const result = data.replace(fromSearchValue, toSearchFile);
   await fs.writeFile(filePath, result, 'utf8');
 }
+
+export async function writeSchemaFile(filePath: string) {
+  const schemaFile = `import Joi from 'joi';
+
+export default Joi.object({
+  CLIENT_VERSION: Joi.string(),
+});
+`;
+  await fs.writeFile(filePath, schemaFile, 'utf8');
+}
