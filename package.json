@@ -26,7 +26,7 @@
   "homepage": "https://github.com/danielemery/docker-react#readme",
   "devDependencies": {
     "@danielemeryau/prettier-config": "^0.0.6",
-    "@types/node": "^16.0.0",
+    "@types/node": "^22.0.0",
     "typescript": "^4.5.4"
   },
   "dependencies": {
