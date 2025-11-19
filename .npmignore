@@ -2,7 +2,7 @@
 src
 tsconfig.json
 prettier.config.cjs
-sample.joi.schema.js
+sample.zod.schema.js
 .github
 
 # Ignore docker-related files

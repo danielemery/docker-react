@@ -1,9 +1,8 @@
-import path from 'path';
 import { promises as fs } from 'fs';
+import path from 'path';
 
 import { Command } from 'commander';
-import Joi from 'joi';
-
+import z from 'zod';
 import { Options } from './options.js';
 
 const ENVIRONMENT_DEFINITION_FILE_NAME = 'window.env.js';
@@ -24,20 +23,16 @@ export function addPrepCommand(program: Command) {
 }
 
 function validateEnvironmentVariables(
-  schema: Joi.Schema,
+  schema: z.Schema,
   environmentVariables: any,
 ): any {
-  const joiResult = schema.validate(environmentVariables, {
-    allowUnknown: true,
-    abortEarly: false,
-    stripUnknown: true,
-  });
+  const zodResult = schema.safeParse(environmentVariables);
 
-  if (joiResult.error) {
-    throw new Error(joiResult.error.message);
+  if (zodResult.error) {
+    throw new Error(zodResult.error.message);
   }
 
-  return joiResult.value;
+  return zodResult.data;
 }
 
 async function generateEnvironmentFile(

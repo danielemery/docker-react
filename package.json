@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "commander": "^14.0.2",
-    "joi": "^17.5.0"
+    "zod": "4.1.12"
   },
   "peerDependencies": {
-    "joi": "^17.5.0"
+    "zod": "4.1.12"
   }
 }
