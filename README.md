@@ -93,9 +93,19 @@ CLI & base image to deploy React applications with docker containers.
    ```json
    {
      "dev": "npm run init-local && vite",
-     "init-local": "npx docker-react prep -s ./env.schema.js -e local -d public"
+     "init-local": "npx docker-react prep -s ./env.schema.js -d public"
    }
    ```
+
+   Note if you are using a `.env` file the current recommended way is to use node directly.
+   ```json
+   {
+     "init-local": "node --env-file=.env ./node_modules/.bin/docker-react prep -s ./env.schema.js -d public"
+   }
+   ```
+
+   There is a pending feature request for npx commands to support loading .env files directly, once it's implemented these docs will be updated accordingly.
+   https://github.com/npm/cli/issues/7069
 
 7. Replace all references to environment variables with `window.env`, eg.
    - `process.env` => `window.env` (for create-react-app and others)

@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "commander": "^14.0.2",
-    "dotenv": "^17.2.3",
     "joi": "^17.5.0"
   },
   "peerDependencies": {
