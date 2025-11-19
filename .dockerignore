@@ -7,5 +7,5 @@ dist
 .npmignore
 package*.json
 prettier.config.cjs
-sample.joi.schema.js
+sample.zod.schema.js
 tsconfig.json

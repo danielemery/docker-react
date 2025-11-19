@@ -10,7 +10,7 @@ on:
 env:
   REGISTRY: demery
   IMAGE_NAME: docker-react
-  NODE_VERSION: 18.18.0
+  NODE_VERSION: 24.11.1
 
 jobs:
   build:

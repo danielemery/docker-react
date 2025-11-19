@@ -21,14 +21,11 @@ CLI & base image to deploy React applications with docker containers.
 
 ## Supported Tooling
 
-- [ ] Create React App
-- [x] Vite
-- [ ] React Static
+- Vite
 
 ## Supported Validation
 
-- [x] Joi
-- [ ] Yup
+- Zod
 
 ## Other TODOs
 
@@ -43,23 +40,23 @@ CLI & base image to deploy React applications with docker containers.
 
 ## Implementation Instructions
 
-1. Install `docker-react` and `joi`
+1. Install `docker-react` and `zod` (zod version should match the peer dependency version exactly)
 
    ```sh
-   npm i -S docker-react joi
+   npm i -S docker-react zod@4.1.12
    ```
 
-2. Create environment variable schema (currently only Joi supported but the future others will be available)
+2. Create environment variable schema (currently only Zod supported but the future others will be available)
 
    ```js
    // env.schema.js
-   const Joi = require('joi');
+   const { z } = require('zod');
 
-   module.exports = Joi.object()
-     .keys({
-       VITE_API_URL: Joi.string().uri().required(),
-     })
-     .required();
+   const envSchema = z.object({
+     VITE_API_URL: z.string().uri().required(),
+   });
+
+   module.exports = envSchema;
    ```
 
 3. Add env import to your `index.html` head (in a future version this will be generated for you)
@@ -93,9 +90,19 @@ CLI & base image to deploy React applications with docker containers.
    ```json
    {
      "dev": "npm run init-local && vite",
-     "init-local": "npx docker-react prep -s ./env.schema.js -e local -d public"
+     "init-local": "npx docker-react prep -s ./env.schema.js -d public"
    }
    ```
+
+   Note if you are using a `.env` file the current recommended way is to use node directly.
+   ```json
+   {
+     "init-local": "node --env-file=.env ./node_modules/.bin/docker-react prep -s ./env.schema.js -d public"
+   }
+   ```
+
+   There is a pending feature request for npx commands to support loading .env files directly, once it's implemented these docs will be updated accordingly.
+   https://github.com/npm/cli/issues/7069
 
 7. Replace all references to environment variables with `window.env`, eg.
    - `process.env` => `window.env` (for create-react-app and others)
