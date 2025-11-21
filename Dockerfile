@@ -1,6 +1,6 @@
 FROM node:24.11.1 as node
 
-FROM nginx
+FROM nginx:1.29.3
 ARG DOCKER_REACT_VERSION
 
 # Grab and link the node binaries from the node image.
@@ -20,4 +20,5 @@ RUN npm install -g docker-react@"${DOCKER_REACT_VERSION}"
 COPY ./node_modules ./node_modules
 
 # Prepare startup script
-COPY ./docker-react-entrypoint.sh /docker-entrypoint.d
+COPY ./docker-react-entrypoint.sh /docker-entrypoint.d/
+RUN chmod +x /docker-entrypoint.d/docker-react-entrypoint.sh
