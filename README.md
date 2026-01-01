@@ -43,7 +43,7 @@ CLI & base image to deploy React applications with docker containers.
 1. Install `docker-react` and `zod` (zod version should match the peer dependency version exactly)
 
    ```sh
-   npm i -S docker-react zod@4.1.12
+   npm i -S docker-react zod@4.3.4
    ```
 
 2. Create environment variable schema (currently only Zod supported but the future others will be available)
