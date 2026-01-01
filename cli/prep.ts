@@ -3,7 +3,7 @@ import path from 'path';
 
 import { Command } from 'commander';
 import z from 'zod';
-import { Options } from './options.js';
+import type { Options } from './options.js';
 
 const ENVIRONMENT_DEFINITION_FILE_NAME = 'window.env.js';
 
