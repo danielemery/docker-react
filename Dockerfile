@@ -1,6 +1,6 @@
 FROM node:24.14.1 AS node
 
-FROM nginx:1.29.7
+FROM nginx:1.31.0
 ARG DOCKER_REACT_VERSION
 
 # Grab and link the node binaries from the node image.
