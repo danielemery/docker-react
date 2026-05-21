@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - uses: nowsprinting/check-version-format-action@v3
+      - uses: nowsprinting/check-version-format-action@v4.0.8
         id: version
         with:
           prefix: 'v'
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - uses: nowsprinting/check-version-format-action@v3
+      - uses: nowsprinting/check-version-format-action@v4.0.8
         id: version
         with:
           prefix: 'v'
