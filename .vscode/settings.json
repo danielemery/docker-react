@@ -1,0 +1,7 @@
+{
+  // `*dockerfile*.ts` files (e.g. cli/steps/dockerfile.ts) are otherwise
+  // mis-detected as Dockerfiles by a substring filename association.
+  "files.associations": {
+    "*dockerfile*.ts": "typescript"
+  }
+}

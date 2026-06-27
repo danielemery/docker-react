@@ -79,7 +79,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - Project context helper (`cli/project.ts`): locate consumer root + read its `package.json`.
   - **Verify (manual):** scaffold a bare Vite app fixture; `check` fails → `init` → `check` passes; re-run `init` is a no-op.
 
-- [ ] **Slice 2 — Dockerfile step**
+- [x] **Slice 2 — Dockerfile step**
   - Resolve own version from the CLI's installed `package.json`.
   - Resolve build dir: regex `vite.config.{ts,js}` for `build.outDir` → fallback `dist`; `--build-dir` wins.
   - apply: write `Dockerfile` (`FROM demery/docker-react:vX.Y.Z`, `COPY env.schema.js`, `COPY <buildDir> /usr/share/nginx/html`).

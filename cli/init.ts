@@ -9,6 +9,10 @@ export function addInitCommand(program: Command) {
     .command('init')
     .description('Perform consumer setup steps (idempotent)')
     .option('-f, --force', 'Overwrite divergent existing files')
+    .option(
+      '-b, --build-dir <dir>',
+      'Build output directory to serve (overrides Vite-config auto-detection)',
+    )
     .action(async (options: InitCheckOptions) => {
       const ctx = await buildContext(options);
       let conflicts = 0;
