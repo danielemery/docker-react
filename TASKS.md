@@ -99,7 +99,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - apply: add `init-local` (npx variant; `--env-file` selects node variant); safe-wire `dev`.
   - check: `init-local` present (and `dev` wired or advised).
 
-- [ ] **Slice 6 — Dependency advisory (step 1)**
+- [x] **Slice 6 — Dependency advisory (step 1)**
   - check: read consumer `package.json`; verify `docker-react` present and `zod` matches our exact `peerDependencies` version. Hard-fail on mismatch.
   - `init`: advise only — print the `npm i -S ...` command; never run npm.
 
