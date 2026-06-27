@@ -109,11 +109,16 @@ framework together with its first caller (Slice 1), not ahead of it.
 
 ## Repo self-consistency (separate commits)
 
-- [ ] Fix `sample.zod.schema.js` → ESM + valid Zod v4.
-- [ ] Fix README schema examples (invalid `.uri().required()` → valid Zod v4).
-- [ ] Correct README `COPY build` → `dist` (and note auto-detect).
-- [ ] Update README "Implementation Instructions" to reference `init` / `check`.
-- [ ] Tick the Features checkboxes that `init`/`check` now satisfy.
+Pre-existing doc/sample bugs — landed in `main` via PR #68 (separate patch branch):
+
+- [x] Fix `sample.zod.schema.js` → ESM + valid Zod v4. *(PR #68)*
+- [x] Fix README schema examples (invalid `.uri().required()` → valid Zod v4). *(PR #68)*
+- [x] Correct README `COPY build` → `dist`. *(PR #68)*
+
+Feature-coupled doc updates (this branch):
+
+- [x] Update README "Implementation Instructions" to reference `init` / `check` (incl. auto-detect note for the build dir).
+- [x] Tick the Features checkboxes that `init`/`check` now satisfy.
 
 ## Follow-ups (out of scope this branch)
 
