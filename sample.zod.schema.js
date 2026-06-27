@@ -1,7 +1,5 @@
-const { z } = require('zod');
+import { z } from 'zod';
 
-const envSchema = z.object({
-  CLIENT_VERSION: z.string().uri().required(),
+export default z.object({
+  CLIENT_VERSION: z.url(),
 });
-
-module.exports = envSchema;
