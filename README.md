@@ -48,15 +48,24 @@ CLI & base image to deploy React applications with docker containers.
 
 2. Create environment variable schema (currently only Zod supported but the future others will be available)
 
+   The schema is loaded via dynamic `import()`, so use whichever module syntax matches your project's `package.json`. CommonJS projects export with `module.exports`; ESM projects (`"type": "module"`) use `export default`.
+
    ```js
-   // env.schema.js
+   // env.schema.js (CommonJS)
    const { z } = require('zod');
 
-   const envSchema = z.object({
-     VITE_API_URL: z.string().uri().required(),
+   module.exports = z.object({
+     VITE_API_URL: z.url(),
    });
+   ```
 
-   module.exports = envSchema;
+   ```js
+   // env.schema.js (ESM — "type": "module")
+   import { z } from 'zod';
+
+   export default z.object({
+     VITE_API_URL: z.url(),
+   });
    ```
 
 3. Add env import to your `index.html` head (in a future version this will be generated for you)
