@@ -70,7 +70,7 @@ Each slice cuts top-to-bottom (Step definition → wired into both `init` and `c
 exercised end-to-end against a fixture) so it's independently reviewable. Build the
 framework together with its first caller (Slice 1), not ahead of it.
 
-- [ ] **Slice 1 — Step framework + command skeleton + first step (`.dockerignore`)**
+- [x] **Slice 1 — Step framework + command skeleton + first step (`.dockerignore`)**
   - Define `Step` interface (`key`, `label`, `severity`, `check()`, `apply()`) in `cli/steps/`.
   - Add `addInitCommand` / `addCheckCommand` (commander), registered in `cli/index.ts`.
   - `check`: run every step's `check()`, print per-step status + summary, exit code per severity.
