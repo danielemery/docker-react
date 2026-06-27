@@ -8,4 +8,6 @@ export interface InitCheckOptions {
   force?: boolean;
   /** Build output directory to serve; overrides Vite-config auto-detection. */
   buildDir?: string;
+  /** Path to the HTML entry file; overrides the `index.html` default. */
+  html?: string;
 }

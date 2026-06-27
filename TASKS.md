@@ -91,7 +91,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - apply: scaffold ESM + valid Zod v4 `export default` schema (skip if file present).
   - check: file exists, importable, resolves to a Zod schema.
 
-- [ ] **Slice 4 — `index.html` step**
+- [x] **Slice 4 — `index.html` step**
   - apply: inject `<script src="/window.env.js"></script>` before `</head>` (idempotent — detect existing tag); `--html` override; error clearly if no `<head>`.
   - check: tag present in resolved html file.
 

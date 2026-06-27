@@ -13,6 +13,7 @@ export function addInitCommand(program: Command) {
       '-b, --build-dir <dir>',
       'Build output directory to serve (overrides Vite-config auto-detection)',
     )
+    .option('--html <path>', 'Path to the HTML entry file (default: index.html)')
     .action(async (options: InitCheckOptions) => {
       const ctx = await buildContext(options);
       let conflicts = 0;
