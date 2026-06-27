@@ -86,7 +86,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - check: file exists AND `FROM` tag matches own version.
   - **Risk:** TS vite config can't be `import()`ed — regex extraction only; log when falling back.
 
-- [ ] **Slice 3 — `env.schema.js` step**
+- [x] **Slice 3 — `env.schema.js` step**
   - Refactor `prep.ts`'s schema-load logic into a shared `cli/schema-loader.ts`.
   - apply: scaffold ESM + valid Zod v4 `export default` schema (skip if file present).
   - check: file exists, importable, resolves to a Zod schema.
