@@ -103,7 +103,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - check: read consumer `package.json`; verify `docker-react` present and `zod` matches our exact `peerDependencies` version. Hard-fail on mismatch.
   - `init`: advise only — print the `npm i -S ...` command; never run npm.
 
-- [ ] **Slice 7 — Env-ref advisory (step 7)**
+- [x] **Slice 7 — Env-ref advisory (step 7)**
   - check: grep source for `import.meta.env` / `process.env`; **warn** (soft, exit 0); list locations.
   - `init`: advise only — never rewrite source.
 

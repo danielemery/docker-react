@@ -1,6 +1,7 @@
 import { dependenciesStep } from './dependencies.js';
 import { dockerfileStep } from './dockerfile.js';
 import { dockerignoreStep } from './dockerignore.js';
+import { envRefsStep } from './env-refs.js';
 import { indexHtmlStep } from './index-html.js';
 import { schemaStep } from './schema.js';
 import { scriptsStep } from './scripts.js';
@@ -14,4 +15,5 @@ export const steps: Step[] = [
   dockerfileStep,
   dockerignoreStep,
   scriptsStep,
+  envRefsStep,
 ];
