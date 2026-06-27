@@ -15,8 +15,13 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 # Set working directory
 WORKDIR /usr/app
 
-# Install docker-react package globally
-RUN npm install -g docker-react@"${DOCKER_REACT_VERSION}"
+# Install docker-react globally. Release builds install the pinned version from
+# npm (DOCKER_REACT_SPEC defaults to the npm spec built from DOCKER_REACT_VERSION).
+# The e2e/local builds override DOCKER_REACT_SPEC with a packed tarball staged
+# into ./e2e/local-pkg/ so the image exercises the working tree, not the release.
+ARG DOCKER_REACT_SPEC="docker-react@${DOCKER_REACT_VERSION}"
+COPY ./e2e/local-pkg/ /tmp/dr-pkg/
+RUN npm install -g "${DOCKER_REACT_SPEC}" && rm -rf /tmp/dr-pkg
 COPY ./node_modules ./node_modules
 
 # Prepare startup script

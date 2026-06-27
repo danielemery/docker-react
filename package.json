@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Tests not yet implemented.\" && exit 0"
+    "test": "echo \"Tests not yet implemented.\" && exit 0",
+    "test:e2e": "node e2e/run.mjs"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@danielemeryau/prettier-config": "^0.0.6",
     "@types/node": "^24.12.0",
+    "playwright": "^1.61.1",
     "typescript": "^6.0.2"
   },
   "dependencies": {
