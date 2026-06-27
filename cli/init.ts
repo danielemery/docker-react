@@ -14,6 +14,10 @@ export function addInitCommand(program: Command) {
       'Build output directory to serve (overrides Vite-config auto-detection)',
     )
     .option('--html <path>', 'Path to the HTML entry file (default: index.html)')
+    .option(
+      '--env-file',
+      'Generate the `node --env-file=.env` variant of the init-local script',
+    )
     .action(async (options: InitCheckOptions) => {
       const ctx = await buildContext(options);
       let conflicts = 0;

@@ -10,4 +10,6 @@ export interface InitCheckOptions {
   buildDir?: string;
   /** Path to the HTML entry file; overrides the `index.html` default. */
   html?: string;
+  /** Generate the `node --env-file=.env` variant of the init-local script. */
+  envFile?: boolean;
 }

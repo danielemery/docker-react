@@ -95,7 +95,7 @@ framework together with its first caller (Slice 1), not ahead of it.
   - apply: inject `<script src="/window.env.js"></script>` before `</head>` (idempotent — detect existing tag); `--html` override; error clearly if no `<head>`.
   - check: tag present in resolved html file.
 
-- [ ] **Slice 5 — `package.json` scripts step**
+- [x] **Slice 5 — `package.json` scripts step**
   - apply: add `init-local` (npx variant; `--env-file` selects node variant); safe-wire `dev`.
   - check: `init-local` present (and `dev` wired or advised).
 
