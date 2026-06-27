@@ -83,7 +83,7 @@ CLI & base image to deploy React applications with docker containers.
    FROM demery/docker-react:vX.X.X
 
    COPY env.schema.js ./env.schema.js
-   COPY build /usr/share/nginx/html
+   COPY dist /usr/share/nginx/html
 
    ```
 
