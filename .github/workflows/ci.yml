@@ -37,6 +37,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: artifacts
+          # upload-artifact excludes dotfiles by default; without this the
+          # hidden entries below (.dockerignore, .npmignore, the local-pkg
+          # .gitkeep) are silently dropped from the artifact.
+          include-hidden-files: true
           path: |
             dist
             bin
@@ -47,6 +51,7 @@ jobs:
             .npmignore
             package*.json
             README.md
+            e2e/local-pkg/.gitkeep
 
   e2e:
     # PR gate for the bootstrap (init/check) feature: scaffolds a fresh Vite app,
