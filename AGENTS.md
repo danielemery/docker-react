@@ -15,9 +15,14 @@ against a consumer-supplied Zod schema and emits `window.env.js`; the app reads
 
 ## Build & verify
 
-- Canonical check: **`npm run build`** (`tsc`, compiles `cli/` → `dist/`). It must pass on
-  every commit. Type errors are the primary safety net.
-- `npm test` is currently a **stub** (`echo … && exit 0`).
+- Canonical check: **`npm run build`** (`tsc`, compiles `cli/` → `dist/`) **+ `npm test`**.
+  Both must pass on every commit; CI runs them in sequence. Type errors are still the primary
+  safety net.
+- **`npm test`** is the fast logic tier: `node --test` (via `tsx`) over `test/**/*.test.ts`.
+  No docker — it exercises each `Step`'s `check()`/`apply()` against throwaway temp-dir
+  fixtures (`test/helpers/project.ts`: `makeTempProject` + `buildCtx`). Add new step tests as
+  `test/steps/<key>.test.ts`. `npm run test:watch` for watch mode; `npm run test:types`
+  type-checks the tests (`tsconfig.test.json`; the build's `tsconfig.json` excludes `test/`).
 - **`npm run test:e2e`** runs the end-to-end test (`e2e/run.mjs`): scaffold a fresh Vite app
   → local `init` → docker build/run → headless Playwright assert that `window.env`
   injection reached the browser. It needs **docker** (the dev container provides it via the
