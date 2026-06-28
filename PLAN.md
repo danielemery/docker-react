@@ -154,25 +154,10 @@ string `'-d, --destination [string'` (missing `]`).
   `npm install docker-react@<version>` both otherwise resolve to the *published* release,
   not the change under test. This may push the generated `FROM` tag to be overridable.
 
-## Manual verification recipe
+## Verification
 
-No automated test runner exists yet (`npm test` is a stub), so verify changes by hand:
-
-```sh
-# 1. Build the CLI from this working tree
-npm run build                      # in the docker-react repo root
-
-# 2. Scaffold a throwaway consumer
-cd "$(mktemp -d)"
-npm create vite@latest app -- --template react-ts
-cd app && npm install
-
-# 3. Exercise against the LOCAL build (not an npx-published version)
-DR=/workspaces/docker-react/bin/docker-react.js
-node "$DR" check     # expect failures before init
-node "$DR" init
-node "$DR" check     # expect pass after init
-node "$DR" init      # expect all-satisfied no-op (idempotency)
-```
-
-Confirm each step flips fail→pass after `init`, and that re-running `init` is a no-op.
+Verification is automated by **`npm run test:e2e`** (`e2e/run.mjs`): it scaffolds a throwaway
+Vite app, runs the local `init` (+ `check`), builds/runs the container, and drives it with
+headless Playwright to prove `window.env` injection — the same scaffold→init→build→run flow
+this recipe used to walk by hand. Prefer it over manual steps. See AGENTS.md "Build & verify"
+for prerequisites; it is the PR gate.

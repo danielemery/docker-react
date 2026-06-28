@@ -17,11 +17,17 @@ against a consumer-supplied Zod schema and emits `window.env.js`; the app reads
 
 - Canonical check: **`npm run build`** (`tsc`, compiles `cli/` → `dist/`). It must pass on
   every commit. Type errors are the primary safety net.
-- `npm test` is currently a **stub** (`echo … && exit 0`). There is no test runner yet.
-  Automated coverage is being added on a branch stacked over `automate-bootstrap` (see
-  TASKS.md). Until then, verify changes manually (PLAN.md has a recipe).
-- CI (`.github/workflows/ci.yml`) runs `npm ci` → `npm run build` → `npm t`. Publishing to
-  npm + Docker Hub is tag-triggered (`v*`).
+- `npm test` is currently a **stub** (`echo … && exit 0`).
+- **`npm run test:e2e`** runs the end-to-end test (`e2e/run.mjs`): scaffold a fresh Vite app
+  → local `init` → docker build/run → headless Playwright assert that `window.env`
+  injection reached the browser. It needs **docker** (the dev container provides it via the
+  `docker-in-docker` feature) and a one-time `npx playwright install --with-deps chromium`.
+  It is the **PR gate** (a dedicated CI job on pull requests). Prefer running it to verify
+  changes — it automates (and supersedes) the by-hand recipe in PLAN.md, with less room for
+  mistakes.
+- CI (`.github/workflows/ci.yml`) runs `npm ci` → `npm run build` → `npm t` on every PR,
+  plus the `e2e` gate job on pull requests. Publishing to npm + Docker Hub is tag-triggered
+  (`v*`).
 
 ## Code conventions
 
