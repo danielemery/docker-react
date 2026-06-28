@@ -25,6 +25,16 @@ function parseFrom(content: string): string | null {
   return match ? match[1] : null;
 }
 
+/** True if `from` is our base image (any tag) — the only FROM line we manage. */
+function isOurImage(from: string | null): boolean {
+  return from !== null && (from === IMAGE || from.startsWith(`${IMAGE}:`));
+}
+
+/** Rewrite just the image reference on the first `FROM` line, leaving the rest intact. */
+function rewriteFrom(content: string, want: string): string {
+  return content.replace(/^(\s*FROM\s+)\S+/im, `$1${want}`);
+}
+
 async function readIfPresent(filePath: string): Promise<string | null> {
   try {
     return await fs.readFile(filePath, 'utf8');
@@ -51,11 +61,14 @@ export const dockerfileStep: Step = {
     const from = parseFrom(content);
     const want = expectedFrom(ctx.selfVersion);
     if (from !== want) {
+      const detail = isOurImage(from)
+        ? `Run \`docker-react init\` to bump the FROM tag to \`${want}\` (the rest of your Dockerfile is preserved) so the image matches the installed CLI version.`
+        : `The FROM line does not reference \`${IMAGE}\`. Set it to \`${want}\`, or run \`docker-react init --force\` to regenerate the standard Dockerfile.`;
       return {
         ok: false,
         severity: 'error',
         message: `\`FROM ${from ?? '?'}\` does not match \`${want}\``,
-        detail: `Update the FROM line to \`${want}\` (or re-run \`docker-react init --force\`) so the image matches the installed CLI version.`,
+        detail,
       };
     }
     return { ok: true, severity: 'error', message: `present, pinned to v${ctx.selfVersion}` };
@@ -65,18 +78,30 @@ export const dockerfileStep: Step = {
     const filePath = path.join(ctx.root, FILE);
     const existing = await readIfPresent(filePath);
     const want = expectedFrom(ctx.selfVersion);
+    const from = existing === null ? null : parseFrom(existing);
 
-    if (existing !== null) {
-      if (parseFrom(existing) === want) {
+    // An existing Dockerfile built on our base image is the consumer's to own;
+    // the FROM *tag* is the only line we manage. Bump it in place — preserving
+    // their ARG/ENV/COPY customizations — rather than clobbering the file. We
+    // never full-overwrite such a file, even with --force.
+    if (existing !== null && isOurImage(from)) {
+      if (from === want) {
         return { changed: false, message: `already present` };
       }
-      if (!ctx.options.force) {
-        return {
-          changed: false,
-          conflict: true,
-          message: `exists with a different FROM; left untouched (use --force to overwrite)`,
-        };
-      }
+      await fs.writeFile(filePath, rewriteFrom(existing, want), 'utf8');
+      return {
+        changed: true,
+        message: `updated FROM to v${ctx.selfVersion} (kept your Dockerfile)`,
+      };
+    }
+
+    // A file with a foreign FROM is genuinely divergent: skip unless --force.
+    if (existing !== null && !ctx.options.force) {
+      return {
+        changed: false,
+        conflict: true,
+        message: `FROM \`${from ?? '?'}\` is not \`${IMAGE}\`; left untouched (use --force to overwrite)`,
+      };
     }
 
     const { dir, source } = await resolveBuildDir(ctx.root, ctx.options.buildDir);
