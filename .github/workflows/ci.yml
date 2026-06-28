@@ -48,6 +48,30 @@ jobs:
             package*.json
             README.md
 
+  e2e:
+    # PR gate for the bootstrap (init/check) feature: scaffolds a fresh Vite app,
+    # runs the LOCAL CLI's init, builds + runs the container, and drives it with
+    # headless Playwright to assert runtime env injection reached the browser.
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Configure node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Install Playwright (chromium + system deps)
+        run: npx playwright install --with-deps chromium
+
+      - name: Run e2e
+        run: npm run test:e2e
+
   publish-npm:
     needs: build
     runs-on: ubuntu-latest

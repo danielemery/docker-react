@@ -1,5 +1,8 @@
 node_modules
 dist
 
+# e2e-packed CLI tarball (staged into the base image at test time)
+e2e/local-pkg/*.tgz
+
 # Agent scratch
 .tmp

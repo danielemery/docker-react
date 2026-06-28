@@ -1,0 +1,2 @@
+# Staging dir for the e2e-packed docker-react tarball (COPYed into the base image).
+# Empty in production builds; the e2e harness drops docker-react-<version>.tgz here.

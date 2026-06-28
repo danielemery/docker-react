@@ -1,6 +1,14 @@
 {
   "name": "docker-react",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  "features": {
+    // moby:false installs Docker CE from Docker's official repo. The Moby
+    // packages (moby:true, the default) aren't available on the trixie-based
+    // javascript-node:24 image, which fails the install.
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {
+      "moby": false
+    }
+  },
   "customizations": {
     "vscode": {
       "extensions": [
