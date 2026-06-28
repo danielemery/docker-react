@@ -77,6 +77,39 @@ jobs:
       - name: Run e2e
         run: npm run test:e2e
 
+  docker-build:
+    # Exercise the release image build on PRs using the SAME artifact-only
+    # context as publish-docker (download-artifact, no checkout), but without
+    # pushing. This catches Dockerfile/packaging regressions (e.g. a COPY whose
+    # source isn't in the uploaded artifacts) before a tag is cut — the e2e job
+    # can't, since it builds from a full checkout. Installs docker-react@latest
+    # (published) just to satisfy the image build; the working-tree CLI is
+    # covered by the e2e job.
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Configure node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: artifacts
+
+      - name: Install packages
+        run: npm ci --omit=dev
+
+      - name: Build image (no push)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          build-args: |
+            DOCKER_REACT_VERSION=latest
+
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
