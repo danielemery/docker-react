@@ -1,4 +1,4 @@
-FROM node:24.18.0 AS node
+FROM node:24.20.0 AS node
 
 FROM nginx:1.31.2
 ARG DOCKER_REACT_VERSION
